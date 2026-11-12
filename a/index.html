@@ -29,7 +29,7 @@ Step 1 'owner を作る'
 if (Get-LocalUser -Name owner -ErrorAction SilentlyContinue) {
   Say '  owner はもうあります（そのまま進みます）' Green
 } else {
-  Say '  パスワードを2回聞かれます。nrs-win2 と同じ4桁を打って Enter（打っても画面には出ません）' Yellow
+  Say '  パスワードを2回聞かれます。のむさん から LINE で届いた4桁を打って Enter（打っても画面には出ません）' Yellow
   for ($i = 0; $i -lt 3; $i++) {
     if ($TEST) { Say '  (試し) net user owner * /add' DarkGray; break }
     net user owner * /add
