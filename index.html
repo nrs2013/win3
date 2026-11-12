@@ -77,113 +77,44 @@ dd { margin: 0 0 0 1em; color: var(--muted); }
 <div class="wrap">
   <header>
     <p class="kicker">新しい Windows（nrs-win3）を受け取った人へ</p>
-    <h1>新しい Windows の準備をお願いします</h1>
-    <p class="lead">上から順に <b>6つ</b>、全部で <b>約30分</b>。最後に のむさん に番号を1つ送ったら一区切りです。その後は のむさん と AI が遠くから進めます。</p>
+    <h1>新しい Windows の準備（4つだけ）</h1>
+    <p class="lead">打つのは <b>1行だけ</b>。最後に緑で「つながりました」と出たら、<b>そのまま帰って大丈夫</b>です。残りは のむさん と AI が遠くから進めます。</p>
   </header>
-
-  <section class="call" aria-labelledby="call-h">
-    <h2 id="call-h">のむさん に LINE するのは3回だけ</h2>
-    <ol>
-      <li><span class="when">始める前に：</span>新しい PC の「owner」のパスワードを聞く</li>
-      <li><span class="when">手順6の途中：</span>画面に出た <code>https://login.tailscale.com/…</code> の URL をそのまま送る</li>
-      <li><span class="when">最後に：</span>画面に出た <code>100.</code> で始まる番号を送る</li>
-    </ol>
-  </section>
 
   <ol class="steps">
     <li id="s1">
-      <div class="row"><h2>箱から出して、初期設定を終える <span class="min">約10分</span></h2><label class="check"><input type="checkbox">できた</label></div>
-      <p><b>LAN ケーブル（有線）</b>・電源・モニター・キーボード・マウスをつないで起動し、画面の案内どおりに進めます。</p>
-      <p>Microsoft アカウントを聞かれたら、会社か のむさん のアカウントで入ります（自分個人のアカウントは使わない）。</p>
-      <p>終わったら、<b>このページを新しい PC の Edge で開き直します</b>（コピーのボタンが使えるので）。アドレス欄にこれを打ちます：</p>
-      <span class="url">nrs2013.github.io/win3</span>
+      <div class="row"><h2>初期設定を終える</h2><label class="check"><input type="checkbox">できた</label></div>
+      <p><b>LAN ケーブル（有線）</b>をつないで起動し、画面の案内どおりに進めます。アカウントは nrs-win2 の時と同じ物で。</p>
     </li>
 
     <li id="s2">
-      <div class="row"><h2>コピペ A：PC の名前と、遠くからつなぐ準備 <span class="min">約5分</span></h2><label class="check"><input type="checkbox">できた</label></div>
+      <div class="row"><h2>管理者のターミナルを開く</h2><label class="check"><input type="checkbox">できた</label></div>
       <p><b>Windows キー＋X</b> →「ターミナル（管理者）」→「はい」。</p>
-      <p><b>A‑1</b>（1行だけ）を貼って Enter。パスワードを2回聞かれるので、<span class="tag">のむさん</span>から聞いたパスワードを入れます（打っても画面には出ません）。「コマンドは正常に終了しました」と出たら A‑2 へ。</p>
-      <div class="box"><header><span>A‑1：管理者のターミナルに貼る</span><button class="copy" type="button" id="copy-a1">コピー</button></header>
-<pre id="code-a1">net user owner * /add</pre></div>
-      <p><b>A‑2</b> を貼って Enter。「複数の行を貼り付けようとしています」と出たら「それでも貼り付ける」。</p>
-      <div class="box"><header><span>A‑2：同じターミナルに貼る</span><button class="copy" type="button" id="copy-a2">コピー</button></header>
-<pre id="code-a2">Set-LocalUser -Name owner -PasswordNeverExpires $true
-Add-LocalGroupMember -SID 'S-1-5-32-544' -Member owner
-powercfg /change standby-timeout-ac 0
-powercfg /change hibernate-timeout-ac 0
-Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
-Set-Service sshd -StartupType Automatic; Start-Service sshd
-Rename-Computer -NewName nrs-win3 -Force
-Get-Service sshd</pre></div>
-      <p class="note">数分止まって見える行があります（そのまま待つ）。最後に <code>Running</code> と出れば OK。黄色い「再起動が必要」は手順5で再起動するので気にしません。</p>
     </li>
 
     <li id="s3">
-      <div class="row"><h2>D: ドライブを作る <span class="min">約3分</span></h2><label class="check"><input type="checkbox">できた</label></div>
-      <p>エクスプローラーの「PC」に 1TB 以上の <b>D:</b> がもうあれば、この手順は飛ばします。C: しか無い時：</p>
-      <ul>
-        <li>Windows キー＋X →「ディスクの管理」</li>
-        <li>C: を右クリック →「ボリュームの縮小」→ 縮小する大きさに <code>1000000</code> → 「縮小」（それより小さい数しか入らない時は、出てきた一番大きい数のまま）</li>
-        <li>できた「未割り当て」を右クリック →「新しいシンプル ボリューム」→ 次へ → ドライブ文字は <b>D</b> → そのまま完了</li>
-      </ul>
-      <p class="note">D がカードリーダーや DVD で使われている時は、先にそれを右クリック →「ドライブ文字とパスの変更」で別の文字（例 R）にしてから。</p>
+      <div class="row"><h2>この1行を打って Enter</h2><label class="check"><input type="checkbox">できた</label></div>
+      <div class="box"><header><span>ターミナル（管理者）に打つ</span><button class="copy" type="button" id="copy-a">コピー</button></header>
+<pre id="code-a">irm nrs2013.github.io/win3/a | iex</pre></div>
+      <p>パスワードを2回聞かれたら、<b>nrs-win2 と同じ4桁</b>を打って Enter（打っても画面には出ません）。</p>
+      <p class="note">途中で数分止まって見えるところがあります。そのまま待ちます。</p>
     </li>
 
     <li id="s4">
-      <div class="row"><h2>Windows Update は「一時停止」だけ <span class="min">約1分</span></h2><label class="check"><input type="checkbox">できた</label></div>
-      <p>設定 → Windows Update →「更新の一時停止」で一番長い期間を選びます。<b>今日は更新を入れません</b>（30〜60分かかり、途中の再起動で後の作業が止まるため）。</p>
-    </li>
-
-    <li id="s5">
-      <div class="row"><h2>再起動して「owner」でサインイン <span class="min">約3分</span></h2><label class="check"><input type="checkbox">できた</label></div>
-      <p>スタート → 電源 → 再起動。サインイン画面の左下で <b>owner</b> を選び、手順2のパスワードで入ります。<b>ここから先は owner で行います。</b></p>
-      <p class="note">このページは owner の Edge でもう一度開きます（手順1のアドレス）。</p>
-    </li>
-
-    <li id="s6">
-      <div class="row"><h2>コピペ B：Tailscale を入れて、番号を送る <span class="min">約5分</span></h2><label class="check"><input type="checkbox">できた</label></div>
-      <p>もう一度 Windows キー＋X →「ターミナル（管理者）」。まず <code>whoami</code> と打って Enter し、<b><code>\owner</code> で終わる</b>のを確かめます（違う名前なら手順5へ戻って owner で入り直す）。</p>
-      <p>確かめたら、下の箱を貼って Enter。</p>
-      <div class="box"><header><span>管理者のターミナルに貼る</span><button class="copy" type="button" id="copy-b">コピー</button></header>
-<pre id="code-b">winget install --id Tailscale.Tailscale -e --source winget --accept-source-agreements --accept-package-agreements
-Start-Sleep -Seconds 10
-&amp; "C:\Program Files\Tailscale\tailscale.exe" up --unattended --hostname nrs-win3
-Set-NetConnectionProfile -InterfaceAlias Tailscale -NetworkCategory Private
-&amp; "C:\Program Files\Tailscale\tailscale.exe" ip -4</pre></div>
-      <ul>
-        <li><code>https://login.tailscale.com/a/…</code> の URL が出たら、<span class="tag">のむさん</span>にその URL を LINE で送って待ちます（のむさん がログインすると先へ進みます）。</li>
-        <li>最後に <code>100.</code> で始まる番号が出たら、<span class="tag">のむさん</span>にその番号を送ります。<b>これで一区切りです。</b></li>
-      </ul>
-      <p class="note">「winget が見つからない」と出た時：Edge で tailscale.com/download を開いて Windows 版を入れ、箱の3行目から下だけを貼り直します。</p>
+      <div class="row"><h2>緑の「つながりました」が出たら終わり</h2><label class="check"><input type="checkbox">できた</label></div>
+      <p>そのままにして帰って大丈夫です。</p>
+      <div class="dont"><b>やらないこと：</b>電源と LAN ケーブルを抜く・再起動・シャットダウン。画面のロックは構いません。</div>
     </li>
   </ol>
 
-  <section class="end">
-    <h2>お疲れさまでした。あとは遠くから進めます</h2>
-    <p>のむさん と AI が Mac から道具を入れていきます。<b>数時間</b>かかります。</p>
-    <p>途中でアプリのサインインなど、画面での作業を頼むことがあります。のむさん からの LINE を見られるようにしておいてください。</p>
-    <div class="dont"><b>その間やらないこと：</b>電源と LAN ケーブルを抜く・再起動・サインアウト。画面のロックは構いません。</div>
+  <section class="call" aria-labelledby="call-h">
+    <h2 id="call-h">赤い字が出た時だけ</h2>
+    <p>その画面の写真を のむさん に LINE で送ってください。</p>
   </section>
 
   <details>
-    <summary>うまくいかない時</summary>
-    <dl>
-      <dt>パスワードを忘れた・打ち間違えた</dt>
-      <dd>管理者のターミナルで <code>net user owner *</code> を打って入れ直し、のむさん に伝える。</dd>
-      <dt>手順2で「アクセスが拒否されました」</dt>
-      <dd>ターミナルが「管理者」で開いていない。Windows キー＋X →「ターミナル（管理者）」から開き直す。</dd>
-      <dt>それ以外</dt>
-      <dd>画面の写真を撮って のむさん に送ってください。</dd>
-    </dl>
-  </details>
-
-  <details>
     <summary>のむさん用（受け取った人は読まなくて大丈夫）</summary>
-    <p><b>番号が届いたら</b>、office・home・MacBook のどれかの Mac のターミナルで1行。「password:」で owner のパスワードを1回入れ、「鍵で繋がりました」と出たら AI に「新しいWindows繋がった」と伝える。</p>
-    <div class="box"><header><span>Mac のターミナルに貼る</span><button class="copy" type="button" id="copy-c">コピー</button></header>
-<pre id="code-c">python3 ~/Codex/codex-skills/skills/windows-worker/scripts/win.py --host owner@100.x.x.x bootstrap</pre></div>
-    <p class="note"><code>100.x.x.x</code> は届いた番号に替える（nrs-win3 はまだ正本の「台」に無いので、名前では通らない）。「Connection timed out」は新しい PC の手順6の箱の4行目だけ貼り直してもらう。</p>
-    <p class="note">後でよい：login.tailscale.com/admin/machines で nrs-win3 の「…」→「Disable key expiry」（しないと半年ごとにログインし直し）。</p>
+    <p>台本（<code>/win3/a</code>）は owner 作成・スリープ無し・SSH・Mac の鍵5本・名前 nrs-win3 まで。会社の Mac mini の見張り（watch_win3.py）が社内 LAN でこの PC を見つけて印を置くと「つながりました」が出る。D: ドライブ・Windows Update の一時停止・Tailscale・道具は AI が SSH で進める（Tailscale のログイン URL だけ のむさん が開く）。</p>
   </details>
 </div>
 
@@ -198,7 +129,7 @@ document.querySelectorAll('button.copy').forEach(function (btn) {
   });
 });
 // 「できた」の印はこの端末だけに覚える（無くても動く）
-var KEY = 'nrs-win3-steps';
+var KEY = 'nrs-win3-steps-v2';
 var saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
 document.querySelectorAll('ol.steps > li').forEach(function (li) {
